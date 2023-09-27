@@ -30,23 +30,25 @@ while score < goal_score:
                 pressed_keys.append(message[1])
             else:
                 pressed_keys.remove(message[1])
-            pressed_chord = recognize_chords(pressed_keys)
-            if pressed_chord:
-                equality = check_chord_data_equality(pressed_chord, random_chord)
-                if equality:
-                    print("correct!")
-                    random_chord = None
-                    score += 1
-                    right += 1
-                else:
-                    print("wrong!")
-                    print(f"you pressed {str_chord_data(pressed_chord)}")
-                    print(f"please enter {str_chord_data(random_chord)}")
-                    score -= 1
-                    wrong += 1
-                print(
-                    f"your score is {score}, ({right} right, {wrong} wrong) ratio: {right/(right+wrong):.2f}\n"
-                )
+
+            if random_chord and len(pressed_keys) == random_chord[3]:
+                pressed_chord = recognize_chords(pressed_keys)
+                if pressed_chord:
+                    equality = check_chord_data_equality(pressed_chord, random_chord)
+                    if equality:
+                        print("correct!")
+                        random_chord = None
+                        score += 1
+                        right += 1
+                    else:
+                        print("wrong!")
+                        print(f"you pressed {str_chord_data(pressed_chord)}")
+                        print(f"please enter {str_chord_data(random_chord)}")
+                        score -= 1
+                        wrong += 1
+                    print(
+                        f"your score is {score}, ({right} right, {wrong} wrong) ratio: {right/(right+wrong):.2f}\n"
+                    )
 
     time.sleep(0.01)
 end_time = time.time()
