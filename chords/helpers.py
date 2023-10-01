@@ -8,6 +8,9 @@ chord_diffs_inversions = {
     "7": [[4, 3, 3], [3, 3, 2], [3, 2, 4], [2, 4, 3]],
     "m7": [[3, 4, 3], [4, 3, 2], [3, 2, 3], [2, 3, 4]],
     "M7": [[4, 3, 4], [3, 4, 1], [4, 1, 4], [1, 4, 3]],
+    "mM7": [[3, 4, 4], [3, 4, 1], [4, 1, 3], [1, 3, 4]],
+    "dim7": [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]],
+    "half_dim": [[3, 3, 4], [3, 4, 2], [4, 2, 3], [2, 3, 3]],
 }
 
 three_note_chords = ["M", "m", "dim", "aug"]
@@ -41,7 +44,7 @@ def produce_random_chord_data():
     chord_type = np.random.choice(list(chord_diffs_inversions.keys()))
     chord_length = len(chord_diffs_inversions[chord_type])
     which_inversion = np.random.choice(range(chord_length))
-    if chord_type == "aug":
+    if chord_type in ["dim7", "aug"]:
         which_inversion = 0
     note_number = 3 if chord_type in three_note_chords else 4
     return (root, chord_type, which_inversion, note_number)
